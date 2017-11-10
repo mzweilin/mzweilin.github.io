@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="it">
+<head>
+<title>Neural Network Playground</title>
+<!--Generated on Thu Jan  5 22:09:06 2017 by LaTeXML (version 0.8.2) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on \DTMdisplaydate.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Neural Network Playground</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Weilin Xu, Jack Lanchantin, Yanjun Qi
+<br class="ltx_break">Department of Computer Science
+<br class="ltx_break">University of Virginia
+</span></span>
+</div>
+<div class="ltx_date ltx_role_creation">
+<span class="ltx_text">Nov 17, 2016</span>
+</div>
+
+<div id="p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text">Tensorflow Playground is an interactive tool for learning neural networks (more specifically, multi-layer-perceptron<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>A perceptron model typically uses a heaviside step function as its activation. Since we use a sigmoid (or other differentiable nonlinearity), our representation not exactly a perceptron model, but that is what we call it</span></span></span> networks). A customized version of Tensorflow Playground for CS6316/4501 HW6 is available at <a href="http://www.cs.virginia.edu/~wx4ed/playground/playground_uva.html" title="" class="ltx_ref ltx_url ltx_font_typewriter" target="_blank">http://www.cs.virginia.edu/~wx4ed/playground/playground_uva.html</a>.
+<br class="ltx_break"></span></p>
+</div>
+<div id="p2" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text">First, we will get familiar with the interface of Tensorflow Playground. Let’s get to it!
+
+<center>
+<img src="screenshot.png" width="742"> </img>
+</center>
+
+<br class="ltx_break"></span></p>
+</div>
+<div id="p3" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text">You can choose from four different datasets on the left side of the page in the DATA panel: Circle, Exclusive Or, Gaussian, and Spiral.The actual data point locations are available on the right side under the OUTPUT label. Do not change the ratio of training to test data or click the REGENERATE button throughout this question. Batch size indicates how many samples are used in your mini-batch gradient descent. You may change this parameter if you want.
+
+<br class="ltx_break"></span></p>
+</div>
+<div id="p4" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text">The neural network model is in the middle of DATA and OUTPUT. This model is a standard ‘‘feed-forward" neural network, where you can vary: (1) the input features (2) the number of hidden layers (3) the number of neurons at each layer. By default, it uses only the raw inputs <math id="p4.m1" class="ltx_Math" alttext="X_{1}" display="inline"><msub><mi>X</mi><mn>1</mn></msub></math> and <math id="p4.m2" class="ltx_Math" alttext="X_{2}" display="inline"><msub><mi>X</mi><mn>2</mn></msub></math> as features, and no hidden layers. You will need to change theses attributes later.
+
+<br class="ltx_break"></span></p>
+</div>
+<div id="p5" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text">Several hyper-parameters are tunable at the top of the page, such as the learning rate, the activation (nonlinearity) function of each neuron, the regularization norm as well as the regularization rate.
+
+<br class="ltx_break"></span></p>
+</div>
+<div id="p6" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text">There are three buttons at the top left for you to control the training of a neural network: Reset, Run/Pause and Step (which steps through each mini-batch of samples at a time).</span></p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1. </span>Hand-crafted Feature Engineering</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Now that we are familiar with the Playground, we will start to build models to classify samples.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p">First you are going to earn some experience in hand-crafted feature engineering with a simple perceptron model with no hidden layers, sigmoid activations, no regularization. In other words, don’t change the model you’re given by default when loading the page.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p">A perceptron (single-layer artificial neural network) with a sigmoid activation function is
+equivalent to logistic regression. As a linear model, it cannot fit some datasets like the Circle,
+Spiral, and Exclusive Or. To extend linear models to represent nonlinear functions of <math id="S1.p3.m1" class="ltx_Math" alttext="x" display="inline"><mi>x</mi></math>, we can apply the linear model to a transformed input <math id="S1.p3.m2" class="ltx_Math" alttext="\phi(x)" display="inline"><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow></math>.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p4" class="ltx_para ltx_noindent">
+<p class="ltx_p">One option is to manually engineer <math id="S1.p4.m1" class="ltx_Math" alttext="\phi" display="inline"><mi>ϕ</mi></math>. This can easily be done in the Playground since you are given 7 different features to choose from in the FEATURES panel.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p5" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Task:</span> You are required to find the best perceptron models for the four datasets, <span class="ltx_text ltx_font_bold">Circle, Exclusive Or, Gaussian and Spiral</span> by choosing different features. Try to select as few features as possible. For the best model of each dataset, you should report the selected features, iterations and test loss in a table. If you also change other hyper-parameters, <span class="ltx_text ltx_font_italic">e.g.</span> the learning rate, you should include them in your report.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p6" class="ltx_para ltx_noindent">
+<p class="ltx_p">For each dataset (Circle, Exclusive Or, Gaussian and Spiral), please include a <span class="ltx_text ltx_font_bold">web page screenshot</span> of the result in your report and explain why this configuration works.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p7" class="ltx_para ltx_noindent">
+<p class="ltx_p">(Note: Don’t worry if you cannot find a good perceptron for the Spiral dataset.
+For the other three datasets, the test loss of a good model should be lower than 0.001.)</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2. </span>Regularization</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Forget the best features you have found in last question. You should now select all the possible (<span class="ltx_text ltx_font_italic">i.e.</span> all 7) features to test the regularization effect here.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S2.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p">You are required to work on the three datasets: <span class="ltx_text ltx_font_bold">Circle, Exclusive Or and Gaussian</span>.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S2.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Task A:</span> Try both L1 and L2 regularization with different (non-zero) regularization rates. In the report, you are required to compare the decision boundary and the test loss over the three models trained with similar number of iterations: no regularization, L1 regularized, L2 regularized.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S2.p4" class="ltx_para ltx_noindent">
+<p class="ltx_p">For each dataset (Circle, Exclusive Or and Gaussian), please include a <span class="ltx_text ltx_font_bold">web page screenshot</span> of the result in your report and explain why this configuration works.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S2.p5" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Task B:</span>
+We have learned that L1 regularization is good for feature selection.
+Take a look at the features with significantly higher weights. Are they the same as the ones you select in last question? Write down the results you observe in your report.
+(You can get the feature weights by moving the mouse pointer over the dash lines.)</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3. </span>Automated Feature Engineering with Neural Network</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">While we were able to find different parameters which were able to make good predictions, the previous two sections required a lot of hand-engineering and regularization tweaking :( We will now explore the power of a neural network’s ability to <span class="ltx_text ltx_font_italic">automatically</span> learn good features :) Let’s try it out on two datasets: the <span class="ltx_text ltx_font_bold">Circle</span> and <span class="ltx_text ltx_font_bold">Exclusive Or</span>.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S3.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p">Here we should only select <math id="S3.p2.m1" class="ltx_Math" alttext="X_{1}" display="inline"><msub><mi>X</mi><mn>1</mn></msub></math> and <math id="S3.p2.m2" class="ltx_Math" alttext="X_{2}" display="inline"><msub><mi>X</mi><mn>2</mn></msub></math> as features (since we are trying to automatically learn all other features from the network). As we have previously seen, a simple perceptron is not going to learn the correct boundaries since both datasets are not linearly separable. However, a more complex neural network should be able to learn an approximation of the complex features that we have selected in the previous experiments.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S3.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p">You can click the + button in the middle to add some hidden layers for the model.
+There is a pair of + and - buttons at the top of each hidden layer for you to change the number of the hidden units. Note that each hidden unit, or neuron, is the same neuron from Lecture 17 (possibly varying the sigmoid activation function).
+
+<br class="ltx_break"></p>
+</div>
+<div id="S3.p4" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Task:</span> Find a set of neural network model parameters which allow the model to find a boundary which correctly separates the testing samples. Report the test loss and iterations of the best model for each dataset. If you modify the other parameters (e.g. activation function), please report them too. Can it beat or approach the result of your hand-crafted feature engineering?
+
+<br class="ltx_break"></p>
+</div>
+<div id="S3.p5" class="ltx_para ltx_noindent">
+<p class="ltx_p">For each dataset (Circle, Exclusive Or), please include a <span class="ltx_text ltx_font_bold">web page screenshot</span> of the result in your report and explain why the configuration would work.</p>
+</div>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4. </span>Spiral Challenge (Extra credit)</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">Congratulations on your level up!
+
+<br class="ltx_break"></p>
+</div>
+<div id="S4.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Task:</span> Now try to find a model that achieves a test loss lower than 0.01 on the <span class="ltx_text ltx_font_bold">Spiral</span> dataset. You‘re free to use other features in the input layer besides <math id="S4.p2.m1" class="ltx_Math" alttext="X_{1}" display="inline"><msub><mi>X</mi><mn>1</mn></msub></math> and <math id="S4.p2.m2" class="ltx_Math" alttext="X_{2}" display="inline"><msub><mi>X</mi><mn>2</mn></msub></math>, but a simpler model architecture is preferred. Report the <span class="ltx_text ltx_font_bold">input features, network architecture, hyper parameters, iterations and test loss</span> in a table. For simplicity, please represent your network architecture by the hidden layers <span class="ltx_text ltx_font_bold">a-b-c-…</span>, where a, b, c are number of hidden units of each layer respectively.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S4.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p">Please include a <span class="ltx_text ltx_font_bold">web page screenshot</span> of the result in your report and explain why this configuration works.
+
+<br class="ltx_break"></p>
+</div>
+<div id="S4.p4" class="ltx_para ltx_noindent">
+<p class="ltx_p">You are now a neural network expert (on the Playground)!</p>
+</div>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Thu Jan  5 22:09:06 2017 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44415567-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
