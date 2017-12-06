@@ -1,0 +1,3 @@
+[submodule "playground/playground"]
+	path = playground/playground
+	url = https://github.com/tensorflow/playground.git
