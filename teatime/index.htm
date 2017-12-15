@@ -4,13 +4,45 @@
 <head>
   <title>UVA CS Tea Time Guide</title>
   <link rel="icon" href="tea-icon.png">
+
+  <style media="screen" type="text/css">
+.scroll-wrapper {
+	-webkit-overflow-scrolling: touch;
+  	overflow-y: scroll;
+
+	/* important:  dimensions or positioning here! */
+}
+
+.scroll-wrapper iframe {
+	/* nada! */
+}
+
+.demo-iframe-holder {
+  position: fixed; 
+  right: 0; 
+  bottom: 0; 
+  left: 0;
+  top: 0;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}
+
+.demo-iframe-holder iframe {
+  height: 100%;
+  width: 100%;
+}
+
+	</style>
+
 </head>
 
 <body>
 
-<iframe src="https://docs.google.com/document/d/e/2PACX-1vR8F9qKyS--wtCHu40574RJ4C-gJihhRieq1hbwnyXv-YbZsvJgKt4JAqkE4Nl_AqIwzhT5CCBmOtBC/pub?embedded=true" style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-    Your browser doesn't support iframes
-</iframe>
+<div class="scroll-wrapper">
+	<iframe src="https://docs.google.com/document/d/e/2PACX-1vR8F9qKyS--wtCHu40574RJ4C-gJihhRieq1hbwnyXv-YbZsvJgKt4JAqkE4Nl_AqIwzhT5CCBmOtBC/pub?embedded=true" style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+	    Your browser doesn't support iframes
+	</iframe>
+</div>
 
 </body>
 
